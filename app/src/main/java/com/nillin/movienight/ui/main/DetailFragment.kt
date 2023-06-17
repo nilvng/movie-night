@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nillin.movienight.R
+import com.nillin.movienight.databinding.FragmentDetailBinding
+import com.nillin.movienight.databinding.FragmentMainBinding
 
 class DetailFragment : Fragment() {
-
+    private val binding: FragmentDetailBinding get() = _binding!!
+    private var _binding: FragmentDetailBinding? = null
     companion object {
         fun newInstance() = DetailFragment()
     }
@@ -20,7 +23,8 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     @Deprecated("Deprecated in Java")

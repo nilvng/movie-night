@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.nillin.movienight.R
 import com.nillin.movienight.databinding.FragmentMainBinding
 
@@ -30,10 +31,7 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.btnDetail.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, DetailFragment.newInstance())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(R.id.action_mainFragment_to_detailFragment)
         }
         return binding.root
     }
