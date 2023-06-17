@@ -11,6 +11,8 @@ Android app, to browse, jam over movies
 5. Search for movies
 6. Watch trailers (YouTube embeded view)
 7. Share to other apps
+8. Connect to friends
+9. See number of friends watched the movie
 
 ## Nuts and bolts
 
@@ -21,6 +23,10 @@ Android app, to browse, jam over movies
 - [Anticipated] GraphQL
 
 ## Demo
+
+Wireframe: detail, list view.
+
+![Wireframe](Readme_images/wireframe_1.png)
 
 Day 1: Project setups, Detail view.
 
