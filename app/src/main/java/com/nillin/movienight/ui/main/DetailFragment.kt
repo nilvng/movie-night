@@ -27,11 +27,16 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = DetailViewModel(requireActivity().application)
+        viewModel.fetch()
+        viewModel.movie.observe(viewLifecycleOwner) {
+            binding.tvSynopsisDetail.text = it.synopsis
+            binding.tvAuthor.text = it.creator
+            binding.tvTitle.text = it.title
+            binding.tvYear.text = it.year.toString()
+        }
     }
 
 }
