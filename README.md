@@ -30,4 +30,4 @@ Wireframe: detail, list view.
 
 Day 1: Project setups, Detail view.
 
-![Day 1](Readme_images/Day_1.png)
+![Day 1b](Readme_images/Day_1b.png)
