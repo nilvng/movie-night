@@ -13,10 +13,6 @@ import com.nillin.movienight.databinding.FragmentMainBinding
 class DetailFragment : Fragment() {
     private val binding: FragmentDetailBinding get() = _binding!!
     private var _binding: FragmentDetailBinding? = null
-    companion object {
-        fun newInstance() = DetailFragment()
-    }
-
     private lateinit var viewModel: DetailViewModel
 
     override fun onCreateView(
@@ -37,6 +33,11 @@ class DetailFragment : Fragment() {
             binding.tvTitle.text = it.title
             binding.tvYear.text = it.year.toString()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

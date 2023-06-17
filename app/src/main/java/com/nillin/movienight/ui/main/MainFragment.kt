@@ -12,10 +12,6 @@ import com.nillin.movienight.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private lateinit var viewModel: MainViewModel
     private val binding: FragmentMainBinding get() = _binding!!
     private var _binding: FragmentMainBinding? = null
