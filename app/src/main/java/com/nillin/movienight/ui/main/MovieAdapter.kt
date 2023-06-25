@@ -1,12 +1,16 @@
 package com.nillin.movienight.ui.main
 
+import android.os.Bundle
+import android.provider.Settings.Global.putInt
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nillin.movienight.R
 import com.nillin.movienight.database.Movie
 import com.nillin.movienight.databinding.ItemSearchBinding
+import com.nillin.movienight.ui.detail.DetailFragment
 
 class MovieAdapter(private val movies: List<Movie>) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
@@ -23,17 +27,19 @@ class MovieAdapter(private val movies: List<Movie>) :
         )
     }
 
+
+
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(movies[position])
+        holder.bind(movies[position], position)
     }
 
     override fun getItemCount() = movies.count()
 
 
-    class MovieViewHolder(private val binding: ItemSearchBinding) :
+    class MovieViewHolder(private val binding: ItemSearchBinding ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(movie: Movie) {
+        fun bind(movie: Movie, position: Int) {
 
             Glide.with(binding.root.context)
                 .load(movie.cover)
@@ -41,6 +47,13 @@ class MovieAdapter(private val movies: List<Movie>) :
                 .placeholder(R.color.teal_200)
                 .into(binding.ivCover)
 
+            binding.root.setOnClickListener {
+                it.findNavController().navigate(
+                    R.id.action_mainFragment_to_detailFragment,
+                    args = Bundle().apply {
+                        putInt(DetailFragment.ARG_POSITION, position)
+                    })
+            }
 
             binding.tvTitle.text = movie.title
         }

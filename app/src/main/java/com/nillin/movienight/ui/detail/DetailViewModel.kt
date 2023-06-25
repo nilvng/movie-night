@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nillin.movienight.common.ContextViewModel
 import com.nillin.movienight.database.Movie
-import com.nillin.movienight.database.dummy_normalpeople
+import com.nillin.movienight.ui.main.dummy_data
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -17,7 +17,7 @@ class DetailViewModel
     val movie: LiveData<Movie> get() = _movie
     private val _movie: MutableLiveData<Movie> = MutableLiveData()
 
-    fun fetch() {
-        _movie.value = dummy_normalpeople
+    fun fetch(index: Int) {
+        _movie.value = dummy_data[index]
     }
 }

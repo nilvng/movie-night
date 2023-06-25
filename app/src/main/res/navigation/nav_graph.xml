@@ -19,5 +19,10 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.nillin.movienight.ui.detail.DetailFragment"
-        android:label="DetailFragment" />
+        android:label="DetailFragment">
+        <argument
+            android:name="movie"
+            app:argType="integer"
+            android:defaultValue="0"/>
+    </fragment>
 </navigation>
