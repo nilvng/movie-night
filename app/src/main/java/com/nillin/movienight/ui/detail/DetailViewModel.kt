@@ -1,4 +1,4 @@
-package com.nillin.movienight.ui.main
+package com.nillin.movienight.ui.detail
 
 import android.app.Application
 import androidx.lifecycle.LiveData

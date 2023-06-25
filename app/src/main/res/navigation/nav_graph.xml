@@ -18,6 +18,6 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.nillin.movienight.ui.main.DetailFragment"
+        android:name="com.nillin.movienight.ui.detail.DetailFragment"
         android:label="DetailFragment" />
 </navigation>

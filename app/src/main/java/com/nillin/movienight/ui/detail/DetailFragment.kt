@@ -1,14 +1,11 @@
-package com.nillin.movienight.ui.main
+package com.nillin.movienight.ui.detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.nillin.movienight.R
 import com.nillin.movienight.databinding.FragmentDetailBinding
-import com.nillin.movienight.databinding.FragmentMainBinding
 
 class DetailFragment : Fragment() {
     private val binding: FragmentDetailBinding get() = _binding!!

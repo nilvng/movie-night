@@ -4,13 +4,23 @@ import com.nillin.movienight.R
 
 data class Movie(
     val title: String,
+    val cover: String,
     val creator: String,
     val actors: ArrayList<String>,
     val year: Int,
     val synopsis: String
 )
-
-val dummy_normalpeople = Movie(title = "Normal People",
+val dummy_silo = Movie(
+    title = "Silo",
+    cover = "https://m.media-amazon.com/images/M/MV5BNTk3MGJkZGItNzRjYy00MDhiLWExMjUtOWU2Njc3YWRmOWE3XkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_.jpg",
+    creator = "Graham Yost",
+    actors = arrayListOf("Rebecca Ferguson", "Rashida Jones", "David Oyelowo"),
+    year = 2023,
+    synopsis = "an American science fiction dystopian drama television series created by Graham Yost based on the Wool series of novels by author Hugh Howey. Set in a dystopian future where a community exists in a giant underground silo comprising 144 levels"
+)
+val dummy_normalpeople = Movie(
+    title = "Normal People",
+    cover = "https://m.media-amazon.com/images/M/MV5BNzMzYmRiNGEtMDg5OC00OGZmLWFmNDktYzRlZTFkZmZiMjAzXkEyXkFqcGdeQXVyMTE2OTE2MzE1._V1_.jpg",
     creator = "Sally Rooney",
     actors = arrayListOf("Daisy Edgar-Jones", "Paul Mescal"),
     year = 2020,

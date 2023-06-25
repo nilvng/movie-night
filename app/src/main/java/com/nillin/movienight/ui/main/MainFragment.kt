@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.nillin.movienight.R
 import com.nillin.movienight.databinding.FragmentMainBinding
 
@@ -26,8 +27,10 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
-        binding.btnDetail.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_detailFragment)
+        GridLayoutManager(context, 2).apply {
+            binding.rvMovies.layoutManager = this
+            binding.rvMovies.adapter = MovieAdapter(viewModel.movies.value ?: emptyList())
+            binding.rvMovies.layoutParams
         }
         return binding.root
     }
