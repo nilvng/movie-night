@@ -1,7 +1,6 @@
 package com.nillin.movienight.ui.main
 
 import android.os.Bundle
-import android.provider.Settings.Global.putInt
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
