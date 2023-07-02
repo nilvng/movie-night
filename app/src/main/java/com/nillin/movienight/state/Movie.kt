@@ -1,6 +1,4 @@
-package com.nillin.movienight.database
-
-import com.nillin.movienight.R
+package com.nillin.movienight.state
 
 data class Movie(
     val title: String,

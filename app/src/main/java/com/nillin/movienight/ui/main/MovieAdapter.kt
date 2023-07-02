@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nillin.movienight.R
-import com.nillin.movienight.database.Movie
+import com.nillin.movienight.state.Movie
 import com.nillin.movienight.databinding.ItemSearchBinding
 import com.nillin.movienight.ui.detail.DetailFragment
 
