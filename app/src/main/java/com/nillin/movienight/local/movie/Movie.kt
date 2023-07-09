@@ -11,9 +11,9 @@ data class Movie (
     val synopsis: String,
     val cover: String,
     val creator: String,
-    val actors: ArrayList<String>,
+    val actors: String,
     val year: Int,
-    val genre: ArrayList<String>,
+    val genre: String,
         )
 
 @Entity
