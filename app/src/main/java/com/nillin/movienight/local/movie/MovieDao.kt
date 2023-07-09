@@ -1,6 +1,7 @@
 package com.nillin.movienight.local.movie
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
@@ -11,8 +12,9 @@ interface MovieDao {
     fun getAll(): Flow<List<Movie>>
 
     @Query("SELECT * FROM movie WHERE id IN (:movieId)")
-    fun getById(movieId: Int): Flow<Movie>
+    fun getById(movieId: Int): Flow<Movie?>
 
-//    @Query("SELECT * FROM movie WHERE genre IN (:genre)")
-//    suspend fun getByGenre(genre: String): Flow<List<Movie>>
+    @Insert
+    fun insert(movie: Movie)
+
 }

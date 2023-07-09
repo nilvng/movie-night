@@ -17,6 +17,7 @@ class DbModule {
     @Provides
     fun provide(@ApplicationContext context: Context): AppDatabase =
         Room.databaseBuilder(context, AppDatabase::class.java, "movie-night-db")
+            .fallbackToDestructiveMigration()
             .build()
 
     @Provides

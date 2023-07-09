@@ -11,8 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewmodel :MainViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -21,6 +19,5 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.nav_host_fragment).popBackStack()
         }
 
-        viewmodel.onStart()
     }
 }

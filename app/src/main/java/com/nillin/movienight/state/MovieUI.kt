@@ -1,6 +1,7 @@
 package com.nillin.movienight.state
 
-data class Movie(
+data class MovieUI(
+    val id: Int = 0,
     val title: String,
     val cover: String,
     val creator: String,
@@ -8,7 +9,8 @@ data class Movie(
     val year: Int,
     val synopsis: String
 )
-val dummy_silo = Movie(
+val dummy_silo = MovieUI(
+    id = 1,
     title = "Silo",
     cover = "https://m.media-amazon.com/images/M/MV5BNTk3MGJkZGItNzRjYy00MDhiLWExMjUtOWU2Njc3YWRmOWE3XkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_.jpg",
     creator = "Graham Yost",
@@ -16,7 +18,8 @@ val dummy_silo = Movie(
     year = 2023,
     synopsis = "an American science fiction dystopian drama television series created by Graham Yost based on the Wool series of novels by author Hugh Howey. Set in a dystopian future where a community exists in a giant underground silo comprising 144 levels"
 )
-val dummy_normalpeople = Movie(
+val dummy_normalpeople = MovieUI(
+    id = 2,
     title = "Normal People",
     cover = "https://m.media-amazon.com/images/M/MV5BNzMzYmRiNGEtMDg5OC00OGZmLWFmNDktYzRlZTFkZmZiMjAzXkEyXkFqcGdeQXVyMTE2OTE2MzE1._V1_.jpg",
     creator = "Sally Rooney",

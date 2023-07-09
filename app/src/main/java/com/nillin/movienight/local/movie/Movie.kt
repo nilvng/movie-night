@@ -24,8 +24,9 @@ data class MovieDetail (
     val bookmark: Int,
         )
 
-fun Movie.asState(): com.nillin.movienight.state.Movie {
-    return com.nillin.movienight.state.Movie(
+fun Movie.asState(): com.nillin.movienight.state.MovieUI {
+    return com.nillin.movienight.state.MovieUI(
+        id = this.id,
         title = this.title,
         cover = this.cover,
         creator = this.creator,

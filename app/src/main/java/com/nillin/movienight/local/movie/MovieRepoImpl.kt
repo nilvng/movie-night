@@ -8,7 +8,7 @@ class MovieRepoImpl @Inject constructor(
     private val movieDao: MovieDao
 ): MovieRepo {
     override suspend fun getAll(): Flow<List<Movie>> = movieDao.getAll()
+    override suspend fun getById(movieId: Int): Flow<Movie?> =  movieDao.getById(movieId)
+    override suspend fun insert(movie: Movie) = movieDao.insert(movie)
 
-
-    override suspend fun getById(movieId: Int): Flow<Movie> =  movieDao.getById(movieId)
 }

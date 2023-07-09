@@ -16,14 +16,14 @@
         app:spanCount="2" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSearch"
+        android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/search"
+        android:text="@string/add"
         app:cornerRadius="20dp"
-        app:icon="@drawable/ic_outline_search"
+        app:icon="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
