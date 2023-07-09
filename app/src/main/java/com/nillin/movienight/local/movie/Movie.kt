@@ -23,3 +23,14 @@ data class MovieDetail (
     val popularity: Int,
     val bookmark: Int,
         )
+
+fun Movie.asState(): com.nillin.movienight.state.Movie {
+    return com.nillin.movienight.state.Movie(
+        title = this.title,
+        cover = this.cover,
+        creator = this.creator,
+        actors = this.actors.split(","),
+        year = this.year,
+        synopsis = this.synopsis
+    )
+}

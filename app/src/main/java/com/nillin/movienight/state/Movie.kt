@@ -4,7 +4,7 @@ data class Movie(
     val title: String,
     val cover: String,
     val creator: String,
-    val actors: ArrayList<String>,
+    val actors: List<String>,
     val year: Int,
     val synopsis: String
 )

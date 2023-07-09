@@ -18,7 +18,7 @@ interface RatingDao {
     fun update(rating: Rating)
 
     @Query("SELECT * FROM rating WHERE movie_id IN (:movieId)")
-    suspend fun getRatingByMovie(movieId: Int): Rating
+    fun getRatingByMovie(movieId: Int): Flow<Rating>
 
     @Query("SELECT * FROM rating WHERE user_id IN (:userId)")
     fun getByUser(userId: String): Flow<List<Rating>>

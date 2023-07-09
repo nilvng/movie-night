@@ -21,8 +21,8 @@ interface BookmarkDao {
     @Delete
     fun delete(bookmark: Bookmark)
 
-    @Query("SELECT * FROM bookmark JOIN movie ON bookmark.movie_id = movie.id WHERE bookmark.id IN (:bookmarkId)")
-    suspend fun getMovieByBookmark(bookmarkId: Int): Movie
+//    @Query("SELECT * FROM bookmark JOIN movie ON bookmark.movie_id = movie.id WHERE bookmark.id IN (:bookmarkId)")
+//    fun getMovieByBookmark(bookmarkId: Int): Flow<Movie>
 
     @Query("SELECT * FROM bookmark WHERE user_id IN (:userId)")
     fun getByUser(userId: String): Flow<List<Bookmark>>
