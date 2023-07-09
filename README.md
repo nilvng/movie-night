@@ -30,6 +30,6 @@ Wireframe: detail, list view.
 
 Day 1: Project setups, Detail view.
 
-| Detail View Day 1 | List View Day 2 | Detail View Day 2|
+| Detail View Day 1 | List View With DB | Detail View Day 2|
 |--|--|--|
-|![Day1](/Readme_images/Day_1b.png)|![Day2a](/Readme_images/Day2_listview.png)|![Day2b](/Readme_images/Detail_button.png)|
+|![Day1](/Readme_images/Day_1b.png)|![Day3](/Readme_images/day3_localdb.png)|![Day2b](/Readme_images/Detail_button.png)|
