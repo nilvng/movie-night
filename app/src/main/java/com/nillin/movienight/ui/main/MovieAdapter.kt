@@ -27,10 +27,8 @@ class MovieAdapter(private val movieUIS: ArrayList<MovieUI>) :
     }
 
     fun update(movieUIS: List<MovieUI>) {
-        if (movieUIS.isEmpty()) return
         this.movieUIS.clear()
         this.movieUIS.addAll(movieUIS)
-        notifyItemRangeChanged(0, movieUIS.count())
     }
 
 

@@ -1,5 +1,6 @@
 package com.nillin.movienight.ui.main
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 val dummy_data = listOf(dummy_normalpeople, dummy_silo)
@@ -22,14 +24,15 @@ val dummy_data = listOf(dummy_normalpeople, dummy_silo)
 @HiltViewModel
 class MainViewModel @Inject constructor(
     val movieRepo: MovieRepo
-): ViewModel() {
+) : ViewModel() {
     var movies: LiveData<List<MovieUI>> = MutableLiveData(dummy_data)
-    var flowMovieUI : StateFlow<List<MovieUI>> = MutableStateFlow(dummy_data)
+    var flowMovieUI: StateFlow<List<MovieUI>> = MutableStateFlow(dummy_data)
     private val _flowMovie = MutableStateFlow(dummy_data)
 
     fun getMovies() {
         viewModelScope.launch {
-            flowMovieUI = movieRepo.getAll().map { it.map { it.asState() }}.stateIn(viewModelScope)
+            flowMovieUI = movieRepo.getAll().map { it.map { it.asState() } }.stateIn(viewModelScope)
+            Timber.d(flowMovieUI.value.toString(), null)
         }
     }
 }

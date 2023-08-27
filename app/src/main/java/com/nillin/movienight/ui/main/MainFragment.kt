@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -45,13 +46,16 @@ class MainFragment : Fragment() {
                 viewModel.movieRepo.getAll()
                     .map { movieList -> movieList.map { movie -> movie.asState() } }
                     .collect {
+                        it.forEach {movie ->
+                            Timber.d("Repo: $movie")
+                        }
                         (binding.rvMovies.adapter as MovieAdapter).update(it)
                     }
             }
         }
 
         binding.btnAdd.setOnClickListener {
-//            onAddClicked()
+            onAddClicked()
         }
     }
 
