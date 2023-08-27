@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nillin.movienight.R
@@ -11,8 +13,21 @@ import com.nillin.movienight.state.MovieUI
 import com.nillin.movienight.databinding.ItemSearchBinding
 import com.nillin.movienight.ui.detail.DetailFragment
 
-class MovieAdapter(private val movieUIS: ArrayList<MovieUI>) :
+class MovieAdapter() :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+
+    private val differItemCallback = object : DiffUtil.ItemCallback<MovieUI>() {
+        override fun areItemsTheSame(oldItem: MovieUI, newItem: MovieUI): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: MovieUI, newItem: MovieUI): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    private val differ = AsyncListDiffer(this, differItemCallback)
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -27,16 +42,15 @@ class MovieAdapter(private val movieUIS: ArrayList<MovieUI>) :
     }
 
     fun update(movieUIS: List<MovieUI>) {
-        this.movieUIS.clear()
-        this.movieUIS.addAll(movieUIS)
+        differ.submitList(movieUIS)
     }
 
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(movieUIS[position], position)
+        holder.bind(differ.currentList[position], position)
     }
 
-    override fun getItemCount() = movieUIS.count()
+    override fun getItemCount() = differ.currentList.count()
 
 
     class MovieViewHolder(private val binding: ItemSearchBinding) :

@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         GridLayoutManager(context, 2).apply {
             binding.rvMovies.layoutManager = this
-            binding.rvMovies.adapter = MovieAdapter(dummy_data.toCollection(arrayListOf()))
+            binding.rvMovies.adapter = MovieAdapter()
             binding.rvMovies.layoutParams
         }
         return binding.root
@@ -46,9 +46,6 @@ class MainFragment : Fragment() {
                 viewModel.movieRepo.getAll()
                     .map { movieList -> movieList.map { movie -> movie.asState() } }
                     .collect {
-                        it.forEach {movie ->
-                            Timber.d("Repo: $movie")
-                        }
                         (binding.rvMovies.adapter as MovieAdapter).update(it)
                     }
             }
@@ -63,18 +60,15 @@ class MainFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             viewModel.movieRepo.insert(
                 Movie(
-                    id = 4,
-                    title = "Silo",
-                    cover = "https://m.media-amazon.com/images/M/MV5BNTk3MGJkZGItNzRjYy00MDhiLWExMjUtOWU2Njc3YWRmOWE3XkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_.jpg",
-                    creator = "Graham Yost",
-                    actors = arrayListOf(
-                        "Rebecca Ferguson",
-                        "Rashida Jones",
-                        "David Oyelowo"
-                    ).joinToString(", "),
-                    year = 2023,
-                    genre = "Drama, Sci-Fi",
-                    synopsis = "an American science fiction dystopian drama television series created by Graham Yost based on the Wool series of novels by author Hugh Howey. Set in a dystopian future where a community exists in a giant underground silo comprising 144 levels"
+                    0,
+                    title = "Mythic Quest",
+                    synopsis = "Mythic Quest: Raven's Banquet follows a team of video game developers as they navigate the challenges of running a popular video game.",
+                    cover = "https://static.tvmaze.com/uploads/images/medium_portrait/301/753806.jpg",
+                    actors = "",
+                    creator = "",
+                    genre = "",
+                    year = 2020,
+
                 )
             )
         }
