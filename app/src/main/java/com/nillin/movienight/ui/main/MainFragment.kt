@@ -9,10 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.nillin.movienight.R
 import com.nillin.movienight.databinding.FragmentMainBinding
 import com.nillin.movienight.local.movie.Movie
 import com.nillin.movienight.local.movie.asState
+import com.nillin.movienight.ui.AddMovieBottomsheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
@@ -52,27 +55,10 @@ class MainFragment : Fragment() {
         }
 
         binding.btnAdd.setOnClickListener {
-            onAddClicked()
+            findNavController().navigate(R.id.action_mainFragment_to_addFragment)
         }
     }
 
-    private fun onAddClicked() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.movieRepo.insert(
-                Movie(
-                    0,
-                    title = "Mythic Quest",
-                    synopsis = "Mythic Quest: Raven's Banquet follows a team of video game developers as they navigate the challenges of running a popular video game.",
-                    cover = "https://static.tvmaze.com/uploads/images/medium_portrait/301/753806.jpg",
-                    actors = "",
-                    creator = "",
-                    genre = "",
-                    year = 2020,
-
-                )
-            )
-        }
-    }
 
 
     override fun onDestroy() {

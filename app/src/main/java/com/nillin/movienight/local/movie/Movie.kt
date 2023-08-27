@@ -10,10 +10,10 @@ data class Movie (
     val title: String,
     val synopsis: String,
     val cover: String,
-    val creator: String,
-    val actors: String,
-    val year: Int,
-    val genre: String,
+    val creator: String = "",
+    val actors: String = "",
+    val year: Int = -1,
+    val genre: String = ""
         )
 
 @Entity
