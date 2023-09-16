@@ -49,7 +49,7 @@ class AddMovieBottomsheetFragment : Fragment() {
             lifecycleScope.launch(Dispatchers.IO) {
                 movieRepo.insert(
                     Movie(
-                        id = 3,
+                        id = UUID.randomUUID().timestamp().toInt(),
                         title = binding.etTitle.text.toString(),
                         synopsis = binding.etSynopsis.text.toString(),
                         cover = binding.etCoverLink.text.toString(),
