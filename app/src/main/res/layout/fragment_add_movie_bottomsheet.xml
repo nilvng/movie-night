@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/FragmentContent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.AddMovieBottomsheetFragment">
 
+    <TextView
+        style="@style/Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Details" />
+
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_medium"
         android:hint="@string/add_title"
         android:textColor="@color/black" />
 
@@ -17,22 +25,91 @@
         android:id="@+id/etSynopsis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_medium"
         android:hint="@string/add_synopsis"
+        android:maxLines="2"
         android:textColor="@color/black" />
 
     <TextView
+        style="@style/Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Link to cover" />
+        android:layout_marginTop="@dimen/margin_large"
+        android:text="@string/link_to_cover" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/etCoverLink"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnSelectFromLibrary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/btnSearch"
+            android:layout_weight="1"
+            android:text="Select From Library"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:text="Search"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivCover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <TextView
+        style="@style/Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Notes" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp">
+
+        <TextView
+            style="@style/Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Rating" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/tvRating5" />
+
+        <TextView
+            android:id="@+id/tvRating5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="/10" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_medium"
         android:text="@string/add" />
 </LinearLayout>

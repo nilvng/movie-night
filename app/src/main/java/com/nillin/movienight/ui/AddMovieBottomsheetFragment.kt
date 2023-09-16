@@ -14,6 +14,7 @@ import com.nillin.movienight.local.movie.MovieRepo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,6 +36,8 @@ class AddMovieBottomsheetFragment : Fragment() {
 
     private val binding by lazy { FragmentAddMovieBottomsheetBinding.inflate(layoutInflater) }
 
+    private val link: String = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,7 +55,7 @@ class AddMovieBottomsheetFragment : Fragment() {
                         id = UUID.randomUUID().timestamp().toInt(),
                         title = binding.etTitle.text.toString(),
                         synopsis = binding.etSynopsis.text.toString(),
-                        cover = binding.etCoverLink.text.toString(),
+                        cover = link,
                     )
                 )
             }
