@@ -7,19 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nillin.movienight.R
 import com.nillin.movienight.databinding.FragmentMainBinding
-import com.nillin.movienight.local.movie.Movie
-import com.nillin.movienight.local.movie.asState
-import com.nillin.movienight.ui.AddMovieBottomsheetFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -44,21 +40,17 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
-                viewModel.movieRepo.getAll()
-                    .map { movieList -> movieList.map { movie -> movie.asState() } }
-                    .collect {
-                        (binding.rvMovies.adapter as MovieAdapter).update(it)
-                    }
-            }
-        }
+
+        viewModel.flowMovieUI.flowWithLifecycle(lifecycle, minActiveState = Lifecycle.State.STARTED)
+            .onEach {
+                (binding.rvMovies.adapter as MovieAdapter).update(it)
+            }.launchIn(lifecycleScope)
+
 
         binding.btnAdd.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_addFragment)
         }
     }
-
 
 
     override fun onDestroy() {

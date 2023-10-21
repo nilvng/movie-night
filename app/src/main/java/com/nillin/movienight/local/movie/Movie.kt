@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Movie (
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) var id: Int = 0,
     val title: String,
     val synopsis: String,
     val cover: String,
@@ -24,7 +24,7 @@ data class MovieDetail (
     val bookmark: Int,
         )
 
-fun Movie.asState(): com.nillin.movienight.state.MovieUI {
+fun Movie.asUi(): com.nillin.movienight.state.MovieUI {
     return com.nillin.movienight.state.MovieUI(
         id = this.id,
         title = this.title,

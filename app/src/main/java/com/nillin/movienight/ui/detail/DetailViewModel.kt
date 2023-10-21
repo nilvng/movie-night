@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.nillin.movienight.local.movie.MovieRepo
-import com.nillin.movienight.local.movie.asState
+import com.nillin.movienight.local.movie.asUi
 import com.nillin.movienight.state.MovieUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ class DetailViewModel
 
     fun fetch(index: Int) {
         viewModelScope.launch {
-            _movieUI.value = movieRepo.getById(index).asLiveData(coroutineContext).value?.asState()
+            _movieUI.value = movieRepo.getById(index).asLiveData(coroutineContext).value?.asUi()
 
         }
     }

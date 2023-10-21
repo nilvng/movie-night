@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.nillin.movienight.databinding.FragmentDetailBinding
-import com.nillin.movienight.local.movie.asState
+import com.nillin.movienight.local.movie.asUi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
@@ -45,7 +45,7 @@ class DetailFragment : Fragment() {
                     viewModel.movieRepo.getById(id)
                         .stateIn(this)
                         .filterNotNull()
-                        .map { it.asState() }
+                        .map { it.asUi() }
                         .collect {
                             binding.tvSynopsisDetail.text = it.synopsis
                             binding.tvAuthor.text = it.creator
