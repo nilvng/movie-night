@@ -1,6 +1,6 @@
 # movie-night
 
-Android app, to browse, jam over movies
+Android app, to collecting your favorite movies/series
 
 ## Features
 
@@ -16,11 +16,12 @@ Android app, to browse, jam over movies
 
 ## Nuts and bolts
 
-- Using Kotlin, ViewBinding, DataBinding
+- Using Kotlin, ViewBinding
 - Navigation Graph
 - Room
 - Flow
-- [Anticipated] GraphQL
+- Retrofit, Coil Image Loading
+- OpenAI for movie sypnosis
 
 ## Demo
 
@@ -33,3 +34,7 @@ Day 1: Project setups, Detail view.
 | Detail View Day 1 | List View With DB | Detail View Day 2|
 |--|--|--|
 |![Day1](/Readme_images/Day_1b.png)|![Day3](/Readme_images/day3a_localdb.png)|![Day2b](/Readme_images/Detail_button.png)|
+
+| Add Movie View Day 4 | TODO | TODO|
+|--|--|--|
+|![Day1](/Readme_images/Screenshot_20230916_125629.png)|![Day3](/Readme_images/day3a_localdb.png)|![Day2b](/Readme_images/Detail_button.png)|
