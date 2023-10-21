@@ -13,7 +13,7 @@ import com.nillin.movienight.state.MovieUI
 import com.nillin.movienight.databinding.ItemSearchBinding
 import com.nillin.movienight.ui.detail.DetailFragment
 
-class MovieAdapter() :
+class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val differItemCallback = object : DiffUtil.ItemCallback<MovieUI>() {

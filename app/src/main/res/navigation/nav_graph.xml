@@ -29,6 +29,6 @@
     <fragment
         android:id="@+id/addFragment"
         tools:layout="@layout/fragment_add_movie"
-        android:name="com.nillin.movienight.ui.AddMovieFragment">
+        android:name="com.nillin.movienight.ui.addMovie.AddMovieFragment">
     </fragment>
 </navigation>

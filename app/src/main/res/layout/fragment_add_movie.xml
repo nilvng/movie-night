@@ -3,8 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".ui.AddMovieFragment">
+    android:paddingHorizontal="@dimen/margin_small"
+    tools:context=".ui.addMovie.AddMovieFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:text="@string/details"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etTitle"
@@ -18,17 +29,62 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/add_synopsis"
+        android:maxLines="3"
         android:textColor="@color/black" />
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Link to cover" />
+        android:layout_height="wrap_content">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:text="@string/attach_a_cover_photo"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/browse_in_folder"
+            tools:visibility="visible"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etCoverLink"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_link_or_keyword"
+        android:layout_alignParentStart="true"
+        android:inputType="text"
+        android:layout_toStartOf="@id/btn_search"/>
+        <ImageButton
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_outline_search"
+            android:contentDescription="@string/search_button" />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCoverSearch"
+        android:layout_width="match_parent"
+        android:layout_height="148dp"
+        android:orientation="horizontal"
+        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/cover_search_item"
+        android:layout_marginBottom="@dimen/margin_small" />
 
     <Button
         android:id="@+id/btnAdd"
