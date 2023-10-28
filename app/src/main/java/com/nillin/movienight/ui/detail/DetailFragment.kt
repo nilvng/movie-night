@@ -44,7 +44,6 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getInt(ARG_POSITION)?.let { pos ->
             viewModel.fetch(pos).flowWithLifecycle(lifecycle).filterNotNull()
-                .map { it.asUi() }
                 .onEach {
                     binding.tvSynopsisDetail.text = it.synopsis
                     binding.tvAuthor.text = it.creator

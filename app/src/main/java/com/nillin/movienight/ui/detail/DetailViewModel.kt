@@ -11,15 +11,16 @@ import com.nillin.movienight.state.MovieUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel
 @Inject constructor(
-    val movieRepo: MovieRepo
+    private val movieRepo: MovieRepo
 ) : ViewModel(){
 
-    fun fetch(index: Int) = movieRepo.getById(index)
+    fun fetch(index: Int) = movieRepo.getById(index).map { it?.asUi() }
 
 }
