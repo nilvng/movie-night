@@ -1,10 +1,14 @@
 package com.nillin.movienight.ui.addMovie
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,8 +19,8 @@ import com.nillin.movienight.network.tmdb.TmdbApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class AddMovieFragment : Fragment() {
@@ -39,6 +43,9 @@ class AddMovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnAdd.setOnClickListener {
+
+            if (!isValidInput()) return@setOnClickListener
+
             lifecycleScope.launch(Dispatchers.IO) {
                 movieRepo.insert(
                     Movie(
@@ -56,7 +63,7 @@ class AddMovieFragment : Fragment() {
                 val search = TmdbApi.retrofitService.searchMovies(binding.etTitle.text.toString())
                 val bestSuggestion = search.results.firstOrNull() ?: return@launch
                 binding.etSynopsis.setText(bestSuggestion.overview)
-                binding.etCoverLink.setText("https://image.tmdb.org/t/p/w500${bestSuggestion.imgSrcPath}")
+                binding.etCoverLink.setText("https://image.tmdb.org/t/p/${bestSuggestion.imgSrcPath}")
                 binding.btnSearchCover.performClick()
             }
         }
@@ -66,6 +73,36 @@ class AddMovieFragment : Fragment() {
             val currentItems = (binding.rvCoverSearch.adapter as CoverSearchAdapter).items
             (binding.rvCoverSearch.adapter as CoverSearchAdapter).items = currentItems + binding.etCoverLink.text.toString()
         }
+
+        binding.etCoverLink.doOnTextChanged { text, _, _, _ ->
+            if (text?.isNotEmpty() == true) {
+                binding.etCoverLink.error = ""
+            }
+        }
+        binding.etTitle.doOnTextChanged { text, _, _, _ ->
+            if (text?.isNotEmpty() == true) {
+                binding.etTitle.error = ""
+            }
+        }
+    }
+
+    private fun isValidInput(): Boolean {
+        var isValid = true
+        if (binding.etTitle.text.toString().isEmpty()) {
+            binding.etTitle.error = "Required"
+            isValid = false
+        }
+        if (binding.etCoverLink.text.toString().isEmpty()) {
+            binding.etCoverLink.error = "Required"
+            isValid = false
+        }
+        return isValid
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.etTitle.requestFocus()
+
     }
 
 
