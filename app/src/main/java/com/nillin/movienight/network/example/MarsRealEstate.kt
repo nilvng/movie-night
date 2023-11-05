@@ -1,4 +1,4 @@
-package com.nillin.movienight.network
+package com.nillin.movienight.network.example
 
 import com.squareup.moshi.Json
 

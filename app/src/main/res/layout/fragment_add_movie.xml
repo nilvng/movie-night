@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/margin_small"
     tools:context=".ui.addMovie.AddMovieFragment">
@@ -17,12 +17,25 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/etTitle"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/add_title"
-        android:textColor="@color/black" />
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_title"
+            android:textColor="@color/black" />
+
+        <ImageButton
+            android:id="@+id/btnSearchByTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/search_button"
+            android:src="@drawable/ic_outline_search" />
+    </RelativeLayout>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etSynopsis"
@@ -53,28 +66,30 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/browse_in_folder"
-            tools:visibility="visible"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            tools:visibility="visible" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/etCoverLink"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/enter_link_or_keyword"
-        android:layout_alignParentStart="true"
-        android:inputType="text"
-        android:layout_toStartOf="@id/btn_search"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etCoverLink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/btnSearchCover"
+            android:hint="@string/enter_link_or_keyword"
+            android:inputType="text" />
+
         <ImageButton
-            android:id="@+id/btn_search"
+            android:id="@+id/btnSearchCover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_outline_search"
-            android:contentDescription="@string/search_button" />
+            android:contentDescription="@string/search_button"
+            android:src="@drawable/ic_outline_search" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -83,8 +98,7 @@
         android:layout_height="148dp"
         android:orientation="horizontal"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/cover_search_item"
-        android:layout_marginBottom="@dimen/margin_small" />
+        tools:listitem="@layout/cover_search_item" />
 
     <Button
         android:id="@+id/btnAdd"

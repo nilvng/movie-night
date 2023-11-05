@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nillin.movienight.databinding.FragmentAddMovieBinding
 import com.nillin.movienight.local.movie.Movie
 import com.nillin.movienight.local.movie.MovieRepo
-import com.nillin.movienight.network.MarksApi
+import com.nillin.movienight.network.tmdb.TmdbApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,10 +38,6 @@ class AddMovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
-            val mars = MarksApi.retrofitService.getRealEstate()
-            Timber.d("mars.size: ${mars.take(5).map { it.imgSrcUrl }}")
-        }
         binding.btnAdd.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 movieRepo.insert(
@@ -55,7 +51,17 @@ class AddMovieFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        binding.btnSearch.setOnClickListener {
+        binding.btnSearchByTitle.setOnClickListener {
+            lifecycleScope.launch {
+                val search = TmdbApi.retrofitService.searchMovies(binding.etTitle.text.toString())
+                val bestSuggestion = search.results.firstOrNull() ?: return@launch
+                binding.etSynopsis.setText(bestSuggestion.overview)
+                binding.etCoverLink.setText("https://image.tmdb.org/t/p/w500${bestSuggestion.imgSrcPath}")
+                binding.btnSearchCover.performClick()
+            }
+        }
+
+        binding.btnSearchCover.setOnClickListener {
             binding.rvCoverSearch.visibility = View.VISIBLE
             val currentItems = (binding.rvCoverSearch.adapter as CoverSearchAdapter).items
             (binding.rvCoverSearch.adapter as CoverSearchAdapter).items = currentItems + binding.etCoverLink.text.toString()
