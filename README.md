@@ -38,6 +38,6 @@ Wireframe: detail, list view.
 |--|--|--|
 |![Day1](/Readme_images/Day_1b.png)|![Day3](/Readme_images/day3a_localdb.png)|![Day2b](/Readme_images/Detail_button.png)|
 
-| Add-Movie screen's draft| TODO | TODO|
+| Add Movie | V1 | V2 by fetching movie data from TMDB|
 |--|--|--|
-|![Day5](/Readme_images/Screenshot_20230916_125629.png)|![Day6a](/Readme_images/day6_improveUI_addMovie.png)|![Day6b](/Readme_images/day6_movie_db.png)|
+|![Day5](/Readme_images/Screenshot_20230916_125629.png)|![Day6a](/Readme_images/day6_improveUI_addMovie.png)|![Day6b](/Readme_images/day7_retrofit_tmdb.png)|
