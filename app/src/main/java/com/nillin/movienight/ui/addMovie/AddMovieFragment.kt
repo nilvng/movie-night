@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nillin.movienight.databinding.FragmentAddMovieBinding
 import com.nillin.movienight.local.movie.Movie
 import com.nillin.movienight.local.movie.MovieRepo
+import com.nillin.movienight.network.MarksApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,6 +37,11 @@ class AddMovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        lifecycleScope.launch {
+            val mars = MarksApi.retrofitService.getRealEstate()
+            Timber.d("mars.size: ${mars.take(5).map { it.imgSrcUrl }}")
+        }
         binding.btnAdd.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 movieRepo.insert(
