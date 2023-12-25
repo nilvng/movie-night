@@ -15,10 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nillin.movienight.databinding.FragmentAddMovieBinding
 import com.nillin.movienight.local.movie.Movie
 import com.nillin.movienight.local.movie.MovieRepo
+import com.nillin.movienight.network.tmdb.TMDB_BASE_IMG_URL
 import com.nillin.movienight.network.tmdb.TmdbApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -51,7 +53,7 @@ class AddMovieFragment : Fragment() {
                     Movie(
                         title = binding.etTitle.text.toString(),
                         synopsis = binding.etSynopsis.text.toString(),
-                        cover = binding.etCoverLink.text.toString(),
+                        cover = TMDB_BASE_IMG_URL +  binding.etCoverLink.text.toString(),
                     )
                 )
             }
@@ -63,25 +65,26 @@ class AddMovieFragment : Fragment() {
                 val search = TmdbApi.retrofitService.searchMovies(binding.etTitle.text.toString())
                 val bestSuggestion = search.results.firstOrNull() ?: return@launch
                 binding.etSynopsis.setText(bestSuggestion.overview)
-                binding.etCoverLink.setText("https://image.tmdb.org/t/p/${bestSuggestion.imgSrcPath}")
+                binding.etCoverLink.setText(bestSuggestion.imgSrcPath)
                 binding.btnSearchCover.performClick()
             }
         }
 
         binding.btnSearchCover.setOnClickListener {
             binding.rvCoverSearch.visibility = View.VISIBLE
+            val imgQuery = TMDB_BASE_IMG_URL + binding.etCoverLink.text.toString()
             val currentItems = (binding.rvCoverSearch.adapter as CoverSearchAdapter).items
-            (binding.rvCoverSearch.adapter as CoverSearchAdapter).items = currentItems + binding.etCoverLink.text.toString()
+            (binding.rvCoverSearch.adapter as CoverSearchAdapter).items = currentItems + imgQuery
         }
 
         binding.etCoverLink.doOnTextChanged { text, _, _, _ ->
             if (text?.isNotEmpty() == true) {
-                binding.etCoverLink.error = ""
+                binding.etCoverLink.error = null
             }
         }
         binding.etTitle.doOnTextChanged { text, _, _, _ ->
             if (text?.isNotEmpty() == true) {
-                binding.etTitle.error = ""
+                binding.etCoverLink.error = null
             }
         }
     }

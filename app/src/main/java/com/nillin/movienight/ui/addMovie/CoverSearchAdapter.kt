@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nillin.movienight.databinding.CoverSearchItemBinding
+import timber.log.Timber
 
 class CoverSearchAdapter : RecyclerView.Adapter<CoverSearchAdapter.CoverSearchViewHolder>() {
 
@@ -29,6 +30,7 @@ class CoverSearchAdapter : RecyclerView.Adapter<CoverSearchAdapter.CoverSearchVi
     class CoverSearchViewHolder(private val coverSearchItemBinding: CoverSearchItemBinding) :
         RecyclerView.ViewHolder(coverSearchItemBinding.root) {
         fun bind(cover: String, position: Int) {
+            Timber.d("bind: $cover")
             coverSearchItemBinding.ivCover.apply {
                 Glide.with(context)
                     .load(cover)
