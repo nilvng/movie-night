@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nillin.movienight.local.movie.Movie
 import com.nillin.movienight.local.movie.MovieRepo
+import com.nillin.movienight.network.tmdb.TMDB_BASE_IMG_URL
 import com.nillin.movienight.network.tmdb.TmdbApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -35,12 +36,13 @@ class AddMovieViewModel @Inject constructor(
 
     fun onAddClicked(title: String, synopsis: String, cover: String) =
         viewModelScope.launch(Dispatchers.IO) {
-            val ui = _uiState.updateAndGet { it.copy(title = title, synopsis = synopsis, cover = cover) }
+            val ui =
+                _uiState.updateAndGet { it.copy(title = title, synopsis = synopsis, cover = cover) }
 
             val movie = Movie(
                 title = ui.title,
                 synopsis = ui.synopsis,
-                cover = ui.cover,
+                cover = TMDB_BASE_IMG_URL + ui.cover,
             )
             movieRepo.insert(movie)
         }
