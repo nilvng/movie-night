@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,8 @@ import com.nillin.movienight.network.tmdb.TMDB_BASE_IMG_URL
 import com.nillin.movienight.network.tmdb.TmdbApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -26,9 +29,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddMovieFragment : Fragment() {
-
-    @Inject
-    lateinit var movieRepo: MovieRepo
+    private val viewModel: AddMovieViewModel by viewModels()
 
     private val binding by lazy { FragmentAddMovieBinding.inflate(layoutInflater) }
 
@@ -45,36 +46,17 @@ class AddMovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnAdd.setOnClickListener {
-
-            if (!isValidInput()) return@setOnClickListener
-
-            lifecycleScope.launch(Dispatchers.IO) {
-                movieRepo.insert(
-                    Movie(
-                        title = binding.etTitle.text.toString(),
-                        synopsis = binding.etSynopsis.text.toString(),
-                        cover = TMDB_BASE_IMG_URL +  binding.etCoverLink.text.toString(),
-                    )
-                )
-            }
-            findNavController().popBackStack()
+            onBtnAddClicked()
         }
 
         binding.btnSearchByTitle.setOnClickListener {
-            lifecycleScope.launch {
-                val search = TmdbApi.retrofitService.searchMovies(binding.etTitle.text.toString())
-                val bestSuggestion = search.results.firstOrNull() ?: return@launch
-                binding.etSynopsis.setText(bestSuggestion.overview)
-                binding.etCoverLink.setText(bestSuggestion.imgSrcPath)
-                binding.btnSearchCover.performClick()
-            }
+            viewModel.onSearchClicked(binding.etTitle.text.toString())
         }
 
+        observeViewModel()
+
         binding.btnSearchCover.setOnClickListener {
-            binding.rvCoverSearch.visibility = View.VISIBLE
-            val imgQuery = TMDB_BASE_IMG_URL + binding.etCoverLink.text.toString()
-            val currentItems = (binding.rvCoverSearch.adapter as CoverSearchAdapter).items
-            (binding.rvCoverSearch.adapter as CoverSearchAdapter).items = currentItems + imgQuery
+            triggerSearchCover()
         }
 
         binding.etCoverLink.doOnTextChanged { text, _, _, _ ->
@@ -84,9 +66,37 @@ class AddMovieFragment : Fragment() {
         }
         binding.etTitle.doOnTextChanged { text, _, _, _ ->
             if (text?.isNotEmpty() == true) {
-                binding.etCoverLink.error = null
+                binding.etTitle.error = null
             }
         }
+    }
+
+    private fun onBtnAddClicked() {
+        if (!isValidInput()) return
+        viewModel.onAddClicked(
+            title = binding.etTitle.text.toString(),
+            synopsis = binding.etSynopsis.text.toString(),
+            cover = binding.etCoverLink.text.toString(),
+        )
+        findNavController().popBackStack()
+    }
+
+    private fun observeViewModel() {
+        viewModel.uiState.onEach {
+            binding.etTitle.setText(it.title)
+            binding.etSynopsis.setText(it.synopsis)
+            binding.etCoverLink.setText(it.cover)
+            if (it.cover.isNotEmpty()) {
+                triggerSearchCover()
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun triggerSearchCover() {
+        binding.rvCoverSearch.visibility = View.VISIBLE
+        val imgQuery = TMDB_BASE_IMG_URL + binding.etCoverLink.text.toString()
+        val currentItems = (binding.rvCoverSearch.adapter as CoverSearchAdapter).items
+        (binding.rvCoverSearch.adapter as CoverSearchAdapter).items = currentItems + imgQuery
     }
 
     private fun isValidInput(): Boolean {

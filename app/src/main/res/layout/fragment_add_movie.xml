@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/add_title"
             android:maxLines="1"
+            android:inputType="textCapWords"
             android:imeOptions="actionDone"
             android:textColor="@color/black" />
 
